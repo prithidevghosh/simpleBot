@@ -3,7 +3,7 @@
  * @module routes/index
  */
 
-const express = require('express');
+const express = require("express");
 
 /**
  * Express Router instance for managing routes.
@@ -11,9 +11,11 @@ const express = require('express');
  */
 const router = express.Router();
 
-const users = require('./users');
+const users = require("./users");
+const chatBots = require("./chatBots");
 
 // Mount the 'users' routes on the '/users' path
-router.use('/users', users);
+router.use("/users", users);
+router.use("/chatbots", chatBots);
 
 module.exports = router;
