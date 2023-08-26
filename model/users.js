@@ -4,6 +4,7 @@
  */
 
 const { Sequelize, DataTypes } = require("sequelize");
+const ChatBot = require("../model/chatBots");
 
 /**
  * The Sequelize instance for database connection.
@@ -19,25 +20,32 @@ const sequelize = new Sequelize({
  * @class User
  * @extends Model
  */
-const User = sequelize.define("user", {
-  userId: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
+const User = sequelize.define(
+  "user",
+  {
+    userId: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-}, {
-  timestamps: true,
-});
+  {
+    timestamps: true,
+  }
+);
 
 (async () => {
   try {
     // Synchronize the User model with the database
     await sequelize.sync();
-
+    User.hasMany(ChatBot);
+    ChatBot.belongsTo(User, {
+      foreignKey: "userId",
+    });
     console.log("User model synchronized with the database.");
   } catch (error) {
     console.error("Error synchronizing User model:", error);

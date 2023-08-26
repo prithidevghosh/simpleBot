@@ -12,6 +12,7 @@ const express = require("express");
 const router = express.Router();
 
 const userController = require("../controller/users");
+const chatBotsController = require("../controller/chatBots");
 
 /**
  * Route for creating a new user.
@@ -28,5 +29,7 @@ router.get("/", userController.findAllUsers);
 router.get("/:userId", userController.findUserById);
 router.put("/:userId", userController.updateUserById);
 router.delete("/:userId", userController.deleteUserById);
+router.post("/:userId/chatbots", chatBotsController.createChatBot);
+router.get("/:userId/chatbots", chatBotsController.findAllChatbots);
 
 module.exports = router;
