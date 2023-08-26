@@ -1,0 +1,28 @@
+/**
+ * Express router configuration for user-related routes.
+ * @module routes/users
+ */
+
+const express = require('express');
+
+/**
+ * Express Router instance for managing user-related routes.
+ * @type {Router}
+ */
+const router = express.Router();
+
+const userController = require('../controller/users');
+
+/**
+ * Route for creating a new user.
+ * @name POST /users
+ * @function
+ * @memberof module:routes/users
+ * @inner
+ * @param {object} req - The request object containing user data in the request body.
+ * @param {object} res - The response object used to send a response to the client.
+ * @returns {object} - The response indicating the success of user creation and the user's name.
+ */
+router.post('/', userController.createUser);
+
+module.exports = router;
