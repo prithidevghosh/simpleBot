@@ -13,9 +13,11 @@ const router = express.Router();
 
 const users = require("./users");
 const chatBots = require("./chatBots");
+const endUsers = require("./endUsers");
 
 // Mount the 'users' routes on the '/users' path
 router.use("/users", users);
 router.use("/chatbots", chatBots);
+router.use("/endusers", endUsers);
 
 module.exports = router;

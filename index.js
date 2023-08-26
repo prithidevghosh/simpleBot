@@ -11,6 +11,7 @@ const express = require("express");
  */
 const user = require("./model/users");
 const ChatBot = require("./model/chatBots");
+const EndUser = require("./model/endUsers");
 
 /**
  * Sequelize instance for database connection.
