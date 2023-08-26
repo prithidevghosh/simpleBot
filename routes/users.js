@@ -3,7 +3,7 @@
  * @module routes/users
  */
 
-const express = require('express');
+const express = require("express");
 
 /**
  * Express Router instance for managing user-related routes.
@@ -11,7 +11,7 @@ const express = require('express');
  */
 const router = express.Router();
 
-const userController = require('../controller/users');
+const userController = require("../controller/users");
 
 /**
  * Route for creating a new user.
@@ -23,6 +23,10 @@ const userController = require('../controller/users');
  * @param {object} res - The response object used to send a response to the client.
  * @returns {object} - The response indicating the success of user creation and the user's name.
  */
-router.post('/', userController.createUser);
+router.post("/", userController.createUser);
+router.get("/", userController.findAllUsers);
+router.get("/:userId", userController.findUserById);
+router.put("/:userId", userController.updateUserById);
+router.delete("/:userId", userController.deleteUserById);
 
 module.exports = router;
