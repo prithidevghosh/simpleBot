@@ -7,8 +7,8 @@ This repository contains a RESTful API built using Express.js, SQLite, and Seque
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/express-chatbot-api.git
-   cd express-chatbot-api
+   git clone https://github.com/prithidevghosh/simpleBot.git
+   cd simpleBot
    ```
 
 2. Install dependencies:
@@ -20,7 +20,7 @@ This repository contains a RESTful API built using Express.js, SQLite, and Seque
 3. Start the server:
 
    ```bash
-   npm start
+   nodemon
    ```
 
    The API will be available at `http://localhost:3000`.
@@ -64,14 +64,3 @@ This repository contains a RESTful API built using Express.js, SQLite, and Seque
 1. Use tools like Postman or cURL to make requests to the API endpoints.
 2. Replace `:userId`, `:chatbotId`, `:conversationId`, and `:endUserId` with actual IDs in the URL.
 
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-You can customize this README to include any additional information, such as how to set up your database, testing, error handling, etc. Make sure to replace placeholders like `your-username` with your actual GitHub username, and update the links accordingly.
