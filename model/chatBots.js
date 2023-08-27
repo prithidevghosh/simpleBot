@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
-
+const Conversation = require("./conversations");
 /**
  * Sequelize instance for database connection.
  * @type {Sequelize}
@@ -22,17 +22,9 @@ const ChatBot = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    userId: {
-      /**
-       * User ID associated with the chatbot.
-       * @type {number}
-       */
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   },
   {
-    timestamps: true,
+    timestamps: false,
   }
 );
 
@@ -43,9 +35,10 @@ const ChatBot = sequelize.define(
  * @async
  * @throws {Error} If an error occurs during synchronization.
  */
+
 (async () => {
   try {
-    await sequelize.sync();
+    await sequelize.sync({ force: true });
 
     console.log("ChatBot model synchronized with the database.");
   } catch (error) {

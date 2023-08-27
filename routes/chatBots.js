@@ -13,6 +13,7 @@ const router = express.Router();
 
 const userController = require("../controller/users");
 const chatBotsController = require("../controller/chatBots");
+const conversationController = require("../controller/conversations");
 
 /**
  * Route to retrieve a single chatbot by its ID.
@@ -39,5 +40,12 @@ router.get("/:chatbotId", chatBotsController.retrieveSingleChatBot);
  * @throws {Error} If an error occurs while deleting the chatbot.
  */
 router.delete("/:chatbotId", chatBotsController.deleteSingleChatBot);
-
+router.post(
+  "/:chatbotId/conversations",
+  conversationController.createConversation
+);
+router.get(
+    "/:chatbotId/conversations",
+    conversationController.findAllConversations
+  );
 module.exports = router;

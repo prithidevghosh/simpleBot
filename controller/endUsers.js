@@ -35,11 +35,28 @@ module.exports.createEndUser = async (req, res) => {
  */
 module.exports.findAllEndUsers = async (req, res) => {
   try {
-    const allEndUsers = await EndUser.findAll();
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    const itemsPerPage = 5;
+
+    // Calculate the offset based on the current page and itemsPerPage
+    const offset = (page - 1) * itemsPerPage;
+
+    // Fetch all end users with the specified limit and offset
+    const allEndUsers = await EndUser.findAll({
+      limit: itemsPerPage,
+      offset: offset,
+    });
+
+    // Calculate the total number of end users
+    const totalCount = await EndUser.count();
+
+    const totalPages = Math.ceil(totalCount / itemsPerPage);
 
     return res.status(200).json({
       message: "All end users fetched successfully",
       allUserDetail: allEndUsers,
+      currentPage: page,
+      totalPages: totalPages,
     });
   } catch (error) {
     console.error("Error fetching end users:", error);

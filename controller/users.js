@@ -39,18 +39,34 @@ module.exports.createUser = async (req, res) => {
  */
 module.exports.findAllUsers = async (req, res) => {
   try {
-    // Find all users in the database
-    const allUsers = await User.findAll();
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    const itemsPerPage = 5;
+
+    // Calculate the offset based on the current page and itemsPerPage
+    const offset = (page - 1) * itemsPerPage;
+
+    // Find users with the specified limit and offset
+    const users = await User.findAll({
+      limit: itemsPerPage,
+      offset: offset,
+    });
+
+    // Calculate the total number of users for pagination
+    const totalCount = await User.count();
+
+    const totalPages = Math.ceil(totalCount / itemsPerPage);
 
     return res.status(200).json({
-      users: allUsers,
+      users: users,
+      currentPage: page,
+      totalPages: totalPages,
     });
   } catch (error) {
     // Handle errors
-    console.error("Error fetching all users:", error);
+    console.error("Error fetching users:", error);
     return res
       .status(500)
-      .json({ error: "An error occurred while fetching all the users." });
+      .json({ error: "An error occurred while fetching users." });
   }
 };
 
@@ -67,13 +83,36 @@ module.exports.findUserById = async (req, res) => {
       where: { userId: req.params.userId },
     });
 
-    // Prepare the response object based on whether the user was found
-    const response = particularUser
-      ? { message: "User fetched successfully", userDetail: particularUser }
-      : { message: "User ID is invalid" };
+    if (!particularUser) {
+      return res.status(404).json({ message: "User ID is invalid" });
+    }
 
-    // Send the appropriate response with the correct status code
-    return res.status(particularUser ? 200 : 500).json(response);
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    const itemsPerPage = 5;
+
+    // Calculate the offset based on the current page and itemsPerPage
+    const offset = (page - 1) * itemsPerPage;
+
+    // Fetch the user's details with the specified limit and offset
+    const userDetail = await User.findOne({
+      where: { userId: req.params.userId },
+      limit: itemsPerPage,
+      offset: offset,
+    });
+
+    // Calculate the total number of user details (should be 1 in this case)
+    const totalCount = await User.count({
+      where: { userId: req.params.userId },
+    });
+
+    const totalPages = Math.ceil(totalCount / itemsPerPage);
+
+    return res.status(200).json({
+      message: "User fetched successfully",
+      userDetail: userDetail,
+      currentPage: page,
+      totalPages: totalPages,
+    });
   } catch (error) {
     // Handle errors
     console.error("Error fetching user:", error);

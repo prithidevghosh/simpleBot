@@ -34,18 +34,15 @@ const User = sequelize.define(
     },
   },
   {
-    timestamps: true,
+    timestamps: false,
   }
 );
 
 (async () => {
   try {
     // Synchronize the User model with the database
-    await sequelize.sync();
-    User.hasMany(ChatBot);
-    ChatBot.belongsTo(User, {
-      foreignKey: "userId",
-    });
+    await sequelize.sync({ force: true });
+
     console.log("User model synchronized with the database.");
   } catch (error) {
     console.error("Error synchronizing User model:", error);
