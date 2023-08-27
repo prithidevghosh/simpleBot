@@ -59,6 +59,9 @@ This repository contains a RESTful API built using Express.js, SQLite, and Seque
 - **PUT /endusers/:endUserId:** Update end user details
 - **DELETE /endusers/:endUserId:** Delete an end user
 
+### Bonus Feature: Pagination
+The API endpoints that return multiple items (such as users, chatbots, conversations, and end users) include pagination for a better user experience. Use the limit and offset query parameters to navigate through the paginated results.
+
 ## Usage
 
 1. Use tools like Postman or cURL to make requests to the API endpoints.
