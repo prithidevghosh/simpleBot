@@ -7,11 +7,34 @@ const express = require("express");
 
 /**
  * User model representing user information.
- * @type {import('./model/users')}
+ * @typedef {import('./model/users')} User
  */
 const user = require("./model/users");
 const ChatBot = require("./model/chatBots");
 const EndUser = require("./model/endUsers");
+const Conversation = require("./model/conversations");
+
+// Defining associations
+user.hasMany(ChatBot, {
+  foreignKey: "userId",
+});
+ChatBot.belongsTo(user, {
+  foreignKey: "userId",
+});
+
+ChatBot.hasMany(Conversation, {
+  foreignKey: "botId",
+});
+Conversation.belongsTo(ChatBot, {
+  foreignKey: "botId",
+});
+
+Conversation.hasOne(EndUser, {
+  foreignKey: "conversationId",
+});
+EndUser.belongsTo(Conversation, {
+  foreignKey: "conversationId",
+});
 
 /**
  * Sequelize instance for database connection.

@@ -1,9 +1,10 @@
 /**
- * EndUser model definition and synchronization.
- * @module model/endUsers
+ * Conversation model definition and synchronization.
+ * @module model/conversations
  */
 
 const { Sequelize, DataTypes } = require("sequelize");
+const EndUser = require("../model/endUsers");
 
 /**
  * The Sequelize instance for database connection.
@@ -15,23 +16,24 @@ const sequelize = new Sequelize({
 });
 
 /**
- * EndUser model representing end user information.
- * @class EndUser
+ * Conversation model representing conversation information.
+ * @class Conversation
  * @extends Model
  */
-const EndUser = sequelize.define(
-  "endUser",
+const Conversation = sequelize.define(
+  "conversation",
   {
-    endUserId: {
+    conversationId: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
-      type: DataTypes.STRING,
+    isCompleted: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
     },
-    email: {
+    messageContent: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -42,8 +44,8 @@ const EndUser = sequelize.define(
 );
 
 /**
- * Synchronize the EndUser model with the database.
- * @name SynchronizeEndUserModel
+ * Synchronize the Conversation model with the database.
+ * @name SynchronizeConversationModel
  * @function
  * @async
  * @throws {Error} If an error occurs during synchronization.
@@ -52,10 +54,10 @@ const EndUser = sequelize.define(
   try {
     await sequelize.sync({ force: true });
 
-    console.log("EndUser model synchronized with the database.");
+    console.log("Conversation model synchronized with the database.");
   } catch (error) {
-    console.error("Error synchronizing EndUser model:", error);
+    console.error("Error synchronizing conversation model:", error);
   }
 })();
 
-module.exports = EndUser;
+module.exports = Conversation;
