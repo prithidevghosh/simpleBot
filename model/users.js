@@ -41,7 +41,7 @@ const User = sequelize.define(
 (async () => {
   try {
     // Synchronize the User model with the database
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
 
     console.log("User model synchronized with the database.");
   } catch (error) {

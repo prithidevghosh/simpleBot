@@ -52,7 +52,7 @@ const Conversation = sequelize.define(
  */
 (async () => {
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
 
     console.log("Conversation model synchronized with the database.");
   } catch (error) {

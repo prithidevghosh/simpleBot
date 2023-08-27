@@ -50,7 +50,7 @@ const EndUser = sequelize.define(
  */
 (async () => {
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
 
     console.log("EndUser model synchronized with the database.");
   } catch (error) {

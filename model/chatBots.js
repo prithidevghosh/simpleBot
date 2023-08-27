@@ -38,7 +38,7 @@ const ChatBot = sequelize.define(
 
 (async () => {
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
 
     console.log("ChatBot model synchronized with the database.");
   } catch (error) {
